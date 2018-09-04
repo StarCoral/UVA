@@ -1,12 +1,29 @@
 //uva 13271_Brick Walls @ACM-ICPC Dhaka Site Regional Contests :: 2017 - Dhaka 
 /**  
-	2 while-Loop
+	recursive
 				2018/9/3 StarCoral
 **/
 #include<iostream>
 #include<math.h>
 using namespace std;
 
+int path(int Sr,int Sc,int Dr,int Dc,int length=0)
+{	
+	if(Sr<Dr)
+	{
+		if((Sr%2) == (Sc%2))
+			return path(++Sr,Sc,Dr,Dc,++length);
+		else
+		{
+			if(Sc>Dc)	
+				return path(Sr,--Sc,Dr,Dc,++length);
+			else
+				return path(Sr,++Sc,Dr,Dc,++length);	
+		}
+	}
+	length += abs(Dc-Sc);
+	return length;
+}
 int main()
 {
 	int Sr,Sc,Dr,Dc,temp;
@@ -16,9 +33,7 @@ int main()
 		if(Sr == 0 && Sc ==0 && Dr == 0 & Dc == 0)
 			break;
 		else
-		{
-			int length = 0;
-			
+		{		
 			if(Sr > Dr)		 // Sr<=Dr
 			{
 				temp = Sr;
@@ -29,27 +44,7 @@ int main()
 				Sc = Dc;
 				Dc = temp;
 			}
-			
-			while(Sr<Dr)
-			{
-				if( (Sr%2) == (Sc%2) )
-				{
-					Sr++;
-					length++;
-				}
-				else
-				{
-					if(Sc>Dc)
-						Sc--;
-					else	
-						Sc++;
-					length++;
-				}	
-				
-				//cout<<"Sr: "<<Sr<<"Sc: "<<Sc<<"Dr: "<<Dr<<"Dc: "<<Dc<<"\n";
-			}
-			length += abs(Dc-Sc);
-			cout<<length<<"\n";
+			cout<<path(Sr,Sc,Dr,Dc)<<"\n";
 		}		
 	}
 	return 0;	
