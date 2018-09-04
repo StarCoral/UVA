@@ -1,12 +1,12 @@
 //uva 902_Password Search
 /**
 	String processing 
-	by vector
-				2018/8/21 StarCoral
+	by map
+				2018/8/27 StarCoral
 **/
 #include<iostream>
 #include<string.h>
-#include<vector>
+#include<map>
 using namespace std;
 
 int main()
@@ -14,32 +14,46 @@ int main()
 	int N;
 	string text;
 
+	
 	while(cin>>N>>text)
 	{
-		int text_length = text.length();	
-		vector<string> password;         //Possible passwords		
-		int f[text_length]={0};          //The frequency of possible passwords
-		int max = 0;					 //max frequency
-		int i;
-		
-		for(i = 0 ; i+N <= text_length ; i++)
+		map<string,int> password;
+	    int max = 0;
+	    
+		for(int i = 0 ; i+N <= text.size() ; i++)
 		{
-			password.push_back(text.substr(i,N));     //string processing 
+			string temp = text.substr(i,N);	     //string processing
 			
-			for(int j = 0 ; j < i ; j++)
-			{
-				if(password[j]==password[i])         //count the number of equal passwords
-					f[j]++;			
-			}	
+			if(!password[temp])		     //count the number of equal passwords
+				password[temp] = 1;
+			else
+				password[temp]++;	
 		}
-		
-		for(int j = 0; j < i ; j++)
+	
+		for(auto &m: password)			     //m is pair structure of map
 		{
-			if(f[j]>max)
-					max = j;	
+			if(m.second > max)	
+			{
+				max = m.second;		     // map<string,int> password;
+				text= m.first;		     // map<first,second>
+			}
 		}
+	
+		/**	
+		map<string,int>::iterator iter;
 		
-		cout<<password[max]<<"\n";		
+		for(iter = password.begin(); iter != password.end() ; iter++)
+		{
+			if(iter->second > max)
+			{
+				max = iter->second;	
+				text= iter->first;
+			}
+					
+		}
+		**/	
+		
+		cout <<text<<"\n";
 	}	
+	return 0;
 }
- 
