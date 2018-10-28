@@ -1,3 +1,8 @@
+//uva 10098_Generating Fast
+/**
+	Backtracking
+				2018/10/27 StarCoral
+**/
 #include<iostream>
 #include<cstring>
 #include<vector>
