@@ -6,6 +6,7 @@
 **/
 #include<iostream>
 #include<vector>
+#include <algorithm>
 #define SIZE 20000001
 
 using namespace std;
@@ -27,13 +28,14 @@ int main()
 	
 	long long int i,j;
 	
-	prime[0] = prime[1]=false;
+	fill(prime,prime+SIZE,true);
 	
-	for(i = 2 ;i<SIZE;i++)
+	prime[0] = prime[1]=false;
+/*	for(i = 2 ;i<SIZE;i++)
 	{	
 		prime[i] = true;
 	}
-	
+*/	
 	for(i = 2 ; i < SIZE ; i++)
 	{
 		if(prime[i] && i*i<SIZE)
